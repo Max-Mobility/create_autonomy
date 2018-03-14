@@ -83,7 +83,7 @@ $ sudo apt-get install python-rosdep python-catkin-tools
 2. Clone this repo  
     ``` bash
     $ cd ~/create_ws/src
-    $ git clone https://github.com/AutonomyLab/create_autonomy.git  
+    $ git clone https://github.com/Max-Mobility/create_autonomy.git  
     ```
   
 3. Install dependencies  
