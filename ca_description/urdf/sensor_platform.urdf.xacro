@@ -1,0 +1,178 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="create_sensor_platform">
+
+    <xacro:macro name="create_r200_camera_link" params="camera x_offset y_offset z_offset r p y inter_x inter_y inter_z ">
+      <link name="${camera}_link"/>
+      <link name="${camera}_ir2_frame"/>
+      <link name="${camera}_ir_frame"/>
+      <link name="${camera}_depth_frame"/>
+      <link name="${camera}_rgb_frame"/>
+      <link name="${camera}_ir2_optical_frame"/>
+      <link name="${camera}_ir_optical_frame"/>
+      <link name="${camera}_depth_optical_frame"/>
+      <link name="${camera}_rgb_optical_frame"/>
+      
+      <joint name="${camera}_offset" type="fixed">
+	<origin xyz="${x_offset} ${y_offset} ${z_offset}" rpy="${r} ${p} ${y}"/>
+	<parent link="base_link" />
+	<child link="${camera}_link"/>
+      </joint>
+
+      <joint name="${camera}_rgb_offset" type="fixed">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<parent link="${camera}_link" />
+	<child link="${camera}_rgb_frame"/>
+      </joint>
+
+      <joint name="${camera}_rgb_optical_offset" type="fixed">
+<!--	<origin xyz="0 0 0" rpy="-1.5707963 1.570793 0"/> -->
+	<origin xyz="0 0 0" rpy="-1.5707963 0 -1.5707963"/>
+	<parent link="${camera}_rgb_frame" />
+	<child link="${camera}_rgb_optical_frame"/>
+      </joint>
+
+      <joint name="${camera}_depth_offset" type="fixed">
+	<origin xyz="${inter_x} ${inter_y} ${inter_z}" rpy="0 0 0"/>
+	<parent link="${camera}_link" />
+	<child link="${camera}_depth_frame"/>
+      </joint>
+
+      <joint name="${camera}_depth_optical_offset" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.5707963 0 -1.5707963"/>
+	<parent link="${camera}_depth_frame" />
+	<child link="${camera}_depth_optical_frame"/>
+      </joint>
+
+      <joint name="${camera}_ir_offset" type="fixed">
+	<origin xyz="${inter_x} ${inter_y} ${inter_z}" rpy="0 0 0"/>
+	<parent link="${camera}_link" />
+	<child link="${camera}_ir_frame"/>
+      </joint>
+
+      <joint name="${camera}_ir_optical_offset" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.5707963 0 -1.5707963"/>
+	<parent link="${camera}_ir_frame" />
+	<child link="${camera}_ir_optical_frame"/>
+      </joint>
+
+      <joint name="${camera}_ir2_offset" type="fixed">
+	<origin xyz="${inter_x} ${inter_y} ${inter_z}" rpy="0 0 0"/>
+	<parent link="${camera}_link" />
+	<child link="${camera}_ir2_frame"/>
+      </joint>
+
+      <joint name="${camera}_ir2_optical_frame" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.5707963 0 -1.5707963"/>
+	<parent link="${camera}_ir2_frame"/>
+	<child link="${camera}_ir2_optical_frame"/>
+      </joint>
+
+      
+    </xacro:macro>
+
+    <xacro:macro name="create_zr300_camera_link" params="camera x_offset y_offset z_offset r p y inter_x inter_y inter_z fish_x fish_y fish_z">
+      <link name="${camera}_link"/>
+      <link name="${camera}_ir2_frame"/>
+      <link name="${camera}_ir_frame"/>
+      <link name="${camera}_depth_frame"/>
+      <link name="${camera}_rgb_frame"/>
+      <link name="${camera}_fisheye_frame"/>
+      <link name="${camera}_imu_frame"/>
+      <link name="${camera}_ir2_optical_frame"/>
+      <link name="${camera}_ir_optical_frame"/>
+      <link name="${camera}_depth_optical_frame"/>
+      <link name="${camera}_rgb_optical_frame"/>
+      <link name="${camera}_fisheye_optical_frame"/>
+      <link name="${camera}_imu_optical_frame"/>
+      
+      
+      <joint name="${camera}_offset" type="fixed">
+	<origin xyz="${x_offset} ${y_offset} ${z_offset}" rpy="${r} ${p} ${y}"/>
+	<parent link="base_link" />
+	<child link="${camera}_link"/>
+      </joint>
+
+      <joint name="${camera}_rgb_offset" type="fixed">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<parent link="${camera}_link" />
+	<child link="${camera}_rgb_frame"/>
+      </joint>
+
+      <joint name="${camera}_rgb_optical_offset" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.5707963 1.570793 0"/>
+	<parent link="${camera}_rgb_frame" />
+	<child link="${camera}_rgb_optical_frame"/>
+      </joint>
+
+      <joint name="${camera}_depth_offset" type="fixed">
+	<origin xyz="${inter_x} ${inter_y} ${inter_z}" rpy="0 0 0"/>
+	<parent link="${camera}_link" />
+	<child link="${camera}_depth_frame"/>
+      </joint>
+
+      <joint name="${camera}_depth_optical_offset" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.5707963 1.5707963 0"/>
+	<parent link="${camera}_depth_frame" />
+	<child link="${camera}_depth_optical_frame"/>
+      </joint>
+
+      <joint name="${camera}_ir_offset" type="fixed">
+	<origin xyz="${inter_x} ${inter_y} ${inter_z}" rpy="0 0 0"/>
+	<parent link="${camera}_link" />
+	<child link="${camera}_ir_frame"/>
+      </joint>
+
+      <joint name="${camera}_ir_optical_offset" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.5707963 1.5707963 0"/>
+	<parent link="${camera}_ir_frame" />
+	<child link="${camera}_ir_optical_frame"/>
+      </joint>
+
+      <joint name="${camera}_ir2_offset" type="fixed">
+	<origin xyz="${inter_x} ${inter_y} ${inter_z}" rpy="0 0 0"/>
+	<parent link="${camera}_link" />
+	<child link="${camera}_ir2_frame"/>
+      </joint>
+
+      <joint name="${camera}_ir2_optical_frame" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.5707963 1.5707963 0"/>
+	<parent link="${camera}_ir2_frame"/>
+	<child link="${camera}_ir2_optical_frame"/>
+      </joint>
+
+      <joint name="${camera}_imu_offset" type="fixed">
+	<origin xyz="0 0.07 0" rpy="0 0 0"/>
+	<parent link="${camera}_link" />
+	<child link="${camera}_imu_frame"/>
+      </joint>
+
+      <joint name="${camera}_imu_optical_frame" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.5707963 1.5707963 0"/>
+	<parent link="${camera}_imu_frame"/>
+	<child link="${camera}_imu_optical_frame"/>
+      </joint>
+      
+      <joint name="${camera}_fisheye_offset" type="fixed">
+	<origin xyz="${fish_x} ${fish_y} ${fish_z}" rpy="0 0 0"/>
+	<parent link="${camera}_link" />
+	<child link="${camera}_fisheye_frame"/>
+      </joint>
+
+      <joint name="${camera}_fisheye_optical_frame" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.5707963 1.5707963 0"/>
+	<parent link="${camera}_fisheye_frame"/>
+	<child link="${camera}_fisheye_optical_frame"/>
+      </joint>
+    </xacro:macro>
+
+
+    <xacro:create_r200_camera_link camera="camera1" x_offset="0.09838" y_offset="0.07093" z_offset="0.12916" r="0" p="0" y="0.61086" inter_x="-0.00060116" inter_y="0.05953734" inter_z="0.00035836"/>
+    <xacro:create_r200_camera_link camera="camera2" x_offset="0.09838" y_offset="-0.07093" z_offset="0.12916" r="0" p="0" y="-0.61086" inter_x="-0.00047456" inter_y="0.05890761" inter_z="-0.00028228"/>
+    <xacro:create_r200_camera_link camera="camera3" x_offset="-0.12606" y_offset="0" z_offset="0.12916" r="0" p="0" y="3.14159" inter_x="-0.00029596" inter_y="0.05857863" inter_z="0.00001785"/>
+    <xacro:create_zr300_camera_link camera="camera4" x_offset="0.1353" y_offset="0" z_offset="0.21333" r="0" p="0" y="0" inter_x="-0.00229075" inter_y="0.05960519" inter_z="-0.00043123" fish_x="-0.00186405" fish_y="0.08935372" fish_z="-0.00118203"/>
+
+  </xacro:macro>
+  
+</robot>
