@@ -14,10 +14,10 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(Boost REQUIRED system thread)
+find_package(libcreate CONFIG REQUIRED)
 
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES libcreate
   CATKIN_DEPENDS
     ca_description
     ca_msgs
@@ -29,38 +29,24 @@ catkin_package(
     sensor_msgs
     std_msgs
     tf
+  DEPENDS libcreate
 )
-
-include(ExternalProject)
-ExternalProject_Add(libcreate
-  GIT_REPOSITORY https://github.com/AutonomyLab/libcreate.git
-  GIT_TAG 1.3.0
-  PREFIX ${CATKIN_DEVEL_PREFIX}
-  CONFIGURE_COMMAND cmake .
-  BUILD_COMMAND make
-  INSTALL_COMMAND echo "No install"
-  BUILD_IN_SOURCE 1
-)
-
-set(libcreate_PATH "${CATKIN_DEVEL_PREFIX}/src/libcreate/")
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
-  ${Boost_INCLUDE_DIRS}
-  ${libcreate_PATH}/include
+#  ${Boost_INCLUDE_DIRS}
   include
 )
 
-link_directories(${libcreate_PATH})
 
 add_executable(${PROJECT_NAME} src/create_driver.cpp)
 
 target_link_libraries(${PROJECT_NAME}
-  create
+#  create
+  libcreate::create
   ${catkin_LIBRARIES}
-  ${Boost_LIBRARIES}
+#  ${Boost_LIBRARIES}
 )
-add_dependencies(${PROJECT_NAME} libcreate)
 
 install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
