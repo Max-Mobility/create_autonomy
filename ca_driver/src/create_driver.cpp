@@ -410,6 +410,7 @@ void CreateDriver::publishOdom()
   odom_msg_.twist.twist.linear.y = vel.y;
   odom_msg_.twist.twist.angular.z = vel.yaw;
 
+  //setting covariance matrix to identity for now to fix issues with rtabmap
   // Update covariances
   odom_msg_.pose.covariance[0] = (double) pose.covariance[0];
   odom_msg_.pose.covariance[1] = pose.covariance[1];
@@ -420,7 +421,7 @@ void CreateDriver::publishOdom()
   odom_msg_.pose.covariance[30] = pose.covariance[6];
   odom_msg_.pose.covariance[31] = pose.covariance[7];
   odom_msg_.pose.covariance[35] = pose.covariance[8];
-  odom_msg_.twist.covariance[0] = vel.covariance[0];
+  /*  odom_msg_.twist.covariance[0] = vel.covariance[0];
   odom_msg_.twist.covariance[1] = vel.covariance[1];
   odom_msg_.twist.covariance[5] = vel.covariance[2];
   odom_msg_.twist.covariance[6] = vel.covariance[3];
@@ -429,6 +430,23 @@ void CreateDriver::publishOdom()
   odom_msg_.twist.covariance[30] = vel.covariance[6];
   odom_msg_.twist.covariance[31] = vel.covariance[7];
   odom_msg_.twist.covariance[35] = vel.covariance[8];
+  */
+
+  // Update covariances
+  /*  odom_msg_.pose.covariance[0] = (double) 1;
+  odom_msg_.pose.covariance[7] = 1;
+  odom_msg_.pose.covariance[14] = 1;
+  odom_msg_.pose.covariance[21] = 1;
+  odom_msg_.pose.covariance[28] = 1;
+  odom_msg_.pose.covariance[35] = 1;*/
+  odom_msg_.twist.covariance[0] = 1;
+  odom_msg_.twist.covariance[7] = 1;
+  odom_msg_.twist.covariance[14] =1;
+  odom_msg_.twist.covariance[21] = 1;
+  odom_msg_.twist.covariance[28] = 1;
+  odom_msg_.twist.covariance[35] = 1;
+
+  
 
   if (publish_tf_)
   {
