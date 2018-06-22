@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ca_driver)
 
+find_package(libcreate REQUIRED)
+
 find_package(catkin REQUIRED COMPONENTS
   ca_msgs
   diagnostic_msgs
@@ -8,18 +10,15 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   nav_msgs
   roscpp
+  roslint
   sensor_msgs
   std_msgs
   tf
 )
 
-find_package(Boost REQUIRED system thread)
-find_package(libcreate CONFIG REQUIRED)
-
 catkin_package(
   INCLUDE_DIRS include
   CATKIN_DEPENDS
-    ca_description
     ca_msgs
     diagnostic_msgs
     diagnostic_updater
@@ -32,21 +31,24 @@ catkin_package(
   DEPENDS libcreate
 )
 
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-#  ${Boost_INCLUDE_DIRS}
-  include
-)
+roslint_cpp()
+roslint_add_test()
 
+include_directories(
+
+  include
+  ${libcreate_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
+)
 
 add_executable(${PROJECT_NAME} src/create_driver.cpp)
 
 target_link_libraries(${PROJECT_NAME}
-#  create
-  libcreate::create
+  ${libcreate_LIBRARIES}
   ${catkin_LIBRARIES}
-#  ${Boost_LIBRARIES}
 )
+
+add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 
 install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
